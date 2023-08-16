@@ -49,6 +49,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>TROTDS.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -71,9 +74,22 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoPatcher.cs" />
+    <Compile Include="ConfigsStructs\CombineConfig.cs" />
+    <Compile Include="ConfigsStructs\CoreConfig.cs" />
+    <Compile Include="MethodExecutionType.cs" />
+    <Compile Include="ProcessWatcher.cs" />
+    <Compile Include="MethodType.cs" />
+    <Compile Include="PatchSupport\ExtraTools.cs" />
+    <Compile Include="Logging\Logger.cs" />
     <Compile Include="LoggingPrograms\ProcessLogCatcher.cs" />
+    <Compile Include="Logging\LogTask.cs" />
     <Compile Include="MainApp.cs" />
-    <Compile Include="GameManager.cs" />
+    <Compile Include="PatchSupport\GameConfig.cs" />
+    <Compile Include="PatchesCollection.cs" />
+    <Compile Include="MethodExecutor.cs" />
+    <Compile Include="PatchSupport\SteamStub.cs" />
+    <Compile Include="Pathes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -83,12 +99,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SettingsConfig.cs" />
+    <Compile Include="ConfigsStructs\SteamEmuConfig.cs" />
     <Compile Include="SettingsService.cs" />
+    <Compile Include="PatchSupport\SteamAPI.cs" />
     <Compile Include="SteamEmuLang.cs" />
-    <Compile Include="TROTDSLauncher.xaml.cs">
+    <Compile Include="Windows\TROTDSLauncher.xaml.cs">
       <DependentUpon>TROTDSLauncher.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -102,7 +120,7 @@
     <None Include="Resources\steamstub_patcher.zip" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="TROTDSLauncher.xaml">
+    <Page Include="Windows\TROTDSLauncher.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -120,10 +138,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="1ea99d20693359db.jpg" />
+    <None Include="Resources\coalesced.exe" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\coalesced.exe" />
+    <Resource Include="TROTDS.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="b54225b138841118d07b8e696c6b40f8.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

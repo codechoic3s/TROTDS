@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TROTDS.Logging;
 
 namespace TROTDS.LoggingPrograms
 {
@@ -43,22 +44,20 @@ namespace TROTDS.LoggingPrograms
             return str;
         }
 
-        public (bool, string) Save()
+        public bool Save(LogTask logTask = null)
         {
-            try
-            {
-                File.WriteAllText(SavePath, CollectLogs());
-            }
-            catch (Exception ex)
-            {
-                return (false, ex.Message);
-            }
+            MethodExecutor methodExecutor = new MethodExecutor();
 
-            return (true, "");
+            methodExecutor.Add(() => { return Utils.TryFileWriteAllText(SavePath, CollectLogs(), logTask); });
+
+            return methodExecutor.Execute();
         }
 
-        public bool RunProgram(string programPath, string args)
+        public bool RunProgram(string programPath, string args, LogTask logTask = null)
         {
+            MethodExecutor methodExecutor = new MethodExecutor();
+
+            // setup process
             ProgramProcess = new Process();
 
             var processInfoStart = new ProcessStartInfo(programPath, args);
@@ -73,7 +72,20 @@ namespace TROTDS.LoggingPrograms
             ProgramProcess.OutputDataReceived += ProgramProcess_OutputDataReceived;
             ProgramProcess.ErrorDataReceived += ProgramProcess_ErrorDataReceived;
 
-            return ProgramProcess.Start();
+            // setup execution
+
+            methodExecutor.Add(() => { 
+                return Utils.TryProcessStart(ProgramProcess, logTask); });
+            methodExecutor.Add(() => { 
+                return Utils.TryProcessWaitForExit(ProgramProcess, 10000, logTask); });
+            return methodExecutor.Execute();
+        }
+
+        private bool WaitProcess(int ms, LogTask logTask = null)
+        {
+            var state = ProgramProcess.WaitForExit(ms);
+            logTask.Log(state ? ("Success of execute program " + ProgramProcess.ProcessName) : "Failed execute program " + ProgramProcess.ProcessName);
+            return state;
         }
 
         private void ProgramProcess_ErrorDataReceived(object sender, DataReceivedEventArgs e)

@@ -1,0 +1,50 @@
+﻿<Window x:Class="TROTDS.Windows.TROTDSLauncher"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TROTDS.Windows"
+        mc:Ignorable="d"
+        Title="TROTDSLauncher" Height="462" Width="666" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="97*"/>
+            <ColumnDefinition Width="125*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="210*"/>
+            <RowDefinition Height="13*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="link_label" Content="github.com/codechoic3s/TROTDS" FontWeight="Bold" MouseDown="link_label_MouseDown" Grid.Row="1" HorizontalAlignment="Left" Width="200" VerticalAlignment="Center" Height="26"/>
+        <Label x:Name="ver_label" Content="1.0.1.0" FontWeight="Bold" MouseDown="link_label_MouseDown" Grid.Row="1" HorizontalAlignment="Right" Width="47" VerticalAlignment="Center" Grid.Column="1" Height="26"/>
+        <TabControl Grid.Column="1">
+            <TabItem Header="Main">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25*"/>
+                        <RowDefinition Height="33*"/>
+                        <RowDefinition Height="39*"/>
+                        <RowDefinition Height="36*"/>
+                        <RowDefinition Height="248*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="fullPatch_btn" Content="FullPatch" HorizontalAlignment="Left" Margin="123,0,0,0" VerticalAlignment="Center" Click="fullPatch_btn_Click" Width="63" Height="20" Grid.Row="1"/>
+                    <Label x:Name="currentGamePath_label" MouseDown="currentGamePath_label_MouseDown" Content="test"/>
+                    <Button x:Name="locateGamePath_btn" Content="Locate game path" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="108" Click="locateGamePath_btn_Click" Height="20" Grid.Row="1"/>
+                    <Button x:Name="startPatched_btn" Content="Run Patched" Click="startPatched_btn_Click" Width="78" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Margin="278,0,0,0" Grid.Row="1"/>
+                    <ComboBox x:Name="gameLang_combobox" Margin="92,0,10,0" Height="23" SelectedIndex="0" SelectionChanged="gameLang_combobox_SelectionChanged" VerticalAlignment="Center" Grid.Row="3"/>
+                    <TextBox x:Name="nickName_tb" Margin="92,0,10,0" TextWrapping="Wrap" VerticalAlignment="Center" TextChanged="nickName_tb_TextChanged" Height="20" Grid.Row="2"/>
+                    <Label x:Name="nickLabel" Content="NickName:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Height="26" Width="68" Grid.Row="2"/>
+                    <Label x:Name="langLabel" Content="Lang:" HorizontalAlignment="Left" Margin="25,4,0,0" VerticalAlignment="Top" Height="26" Width="38" Grid.Row="3"/>
+                    <Button x:Name="restore_btn" Content="Restore" HorizontalAlignment="Left" Margin="191,0,0,0" VerticalAlignment="Center" Click="restore_btn_Click" Width="63" Height="20" Grid.Row="1"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Logs">
+                <Grid Background="#FFE5E5E5">
+                    <ListBox x:Name="logs_listbox" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Image Source="/b54225b138841118d07b8e696c6b40f8.jpg" Stretch="Fill"/>
+
+    </Grid>
+</Window>

@@ -6,19 +6,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TROTDS.ConfigsStructs;
 using TROTDS.Properties;
 
 namespace TROTDS
 {
     public class SettingsService
     {
-        public SettingsConfig Config { get; set; }
+        public CombineConfig Config { get; set; }
         public void Start()
         {
             var path = AppDomain.CurrentDomain.BaseDirectory + "/config.json";
             try
             {
-                Config = JsonConvert.DeserializeObject<SettingsConfig>(File.ReadAllText(path));
+                Config = JsonConvert.DeserializeObject<CombineConfig>(File.ReadAllText(path));
                 
             }
             catch
@@ -27,7 +28,7 @@ namespace TROTDS
 
             if (Config is null)
             {
-                Config = new SettingsConfig();
+                Config = new CombineConfig();
             }
 
             Save();
